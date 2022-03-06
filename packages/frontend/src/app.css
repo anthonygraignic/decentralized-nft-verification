@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+	text-decoration: underline;
+}
+
+body {
+	@apply bg-vblue text-white;
+}
+
+h1 {
+	@apply text-4xl mt-5;
+}
+
+h2 {
+	@apply text-2xl mt-2;
+}
+
+main {
+	min-height: 70vh;
+}
