@@ -8,7 +8,15 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+			optimizeDeps: {
+				exclude: ['@apollo/client']
+			},
+			ssr: {
+				noExternal: ['@apollo/client']
+			}
+		}
 	}
 };
 
