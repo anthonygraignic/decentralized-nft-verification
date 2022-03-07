@@ -1,78 +1,62 @@
 <script>
 	import apolloClient from '$lib/apollo-client';
-	import { gql } from '@apollo/client/core';
+	import { COLLECTIONS } from '$lib/kleros-curated/queries';
 
-	const client = apolloClient;
-
+	import ErrorComponent from '../ErrorComponent.svelte';
 	import SearchBar from './SearchBar.svelte';
 	import SearchResults from './SearchResults.svelte';
 
+	const client = apolloClient;
+
 	let searchText;
 	let loading = false;
+	let error;
 	let results;
-
-	// Using keyword search rather for simplicity's sake
-	const COLLECTIONS = gql`
-		query searchCollections($search: String) {
-			litems(
-				where: {
-					registry: "0x2f19f817bbf800b487b7f2e51f24ad5ea0222463"
-					keywords_contains: $search
-				}
-			) {
-				id
-				itemID
-				data
-				keywords
-				status
-				numberOfRequests
-				data
-				props {
-					id
-					label
-					value
-				}
-				requests {
-					id
-					submissionTime
-					resolved
-					challenger
-					requestType
-				}
-			}
-		}
-	`;
 
 	async function search() {
 		loading = true;
-		const klerosCuratedListResults = await client.query({
-			variables: { search: searchText },
-			query: COLLECTIONS
-		});
-		loading = klerosCuratedListResults.loading;
+		try {
+			const klerosCuratedListResults = await client.query({
+				variables: { search: searchText },
+				query: COLLECTIONS
+			});
+			loading = klerosCuratedListResults.loading;
 
-		results = klerosCuratedListResults.data.litems.map((litem) => {
-			if (!(litem.props && litem.requests)) {
-				//TODO Error
-				return {};
+			if (klerosCuratedListResults.data) {
+				results = klerosCuratedListResults.data.litems.map((litem) => {
+					if (!(litem.props && litem.requests)) {
+						loading = false;
+						error = 'Error on Kleros Curated list result';
+					}
+
+					const name = litem.props.find((element) => element.label === 'Name');
+					const address = litem.props.find((element) => element.label === 'Collection');
+
+					const verifiedRequest = litem.requests.find(
+						(element) => element.requestType === 'RegistrationRequested'
+					);
+
+					return {
+						name: name?.value,
+						address: address?.value,
+						verifiedDate: new Date(verifiedRequest.submissionTime * 1000)
+					};
+				});
+			} else {
+				loading = false;
+				error =
+					JSON.stringify(klerosCuratedListResults.error) ||
+					'Error getting data from Kleros Curated List subgraph';
 			}
-
-			const name = litem.props.find((element) => element.label === 'Name');
-			const address = litem.props.find((element) => element.label === 'Collection');
-
-			const verifiedRequest = litem.requests.find(
-				(element) => element.requestType === 'RegistrationRequested'
-			);
-
-			return {
-				name: name?.value,
-				address: address?.value,
-				verifiedDate: new Date(verifiedRequest.submissionTime * 1000)
-			};
-		});
+		} catch (err) {
+			loading = false;
+			error = JSON.stringify(err) || 'Error getting data from Kleros Curated List subgraph';
+		}
 	}
 </script>
 
 <!-- Make a store for last searches & make an autocomplete search bar -->
 <SearchBar bind:searchText on:search={() => search()} />
-<SearchResults {results} {loading} />
+<ErrorComponent {error}>
+	<SearchResults {results} {loading} />
+</ErrorComponent>
