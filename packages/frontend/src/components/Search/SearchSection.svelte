@@ -1,6 +1,7 @@
 <script>
 	import apolloClient from '$lib/apollo-client';
 	import { COLLECTIONS } from '$lib/kleros-curated/queries';
+	import { convertLitemToCollection } from '$lib/utils/litem';
 
 	import ErrorComponent from '../ErrorComponent.svelte';
 	import SearchBar from './SearchBar.svelte';
@@ -29,18 +30,7 @@
 						error = 'Error on Kleros Curated list result';
 					}
 
-					const name = litem.props.find((element) => element.label === 'Name');
-					const address = litem.props.find((element) => element.label === 'Collection');
-
-					const verifiedRequest = litem.requests.find(
-						(element) => element.requestType === 'RegistrationRequested'
-					);
-
-					return {
-						name: name?.value,
-						address: address?.value,
-						verifiedDate: new Date(verifiedRequest.submissionTime * 1000)
-					};
+					return convertLitemToCollection(litem);
 				});
 			} else {
 				loading = false;

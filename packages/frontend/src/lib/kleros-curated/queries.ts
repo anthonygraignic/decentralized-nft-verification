@@ -28,3 +28,29 @@ export const COLLECTIONS = gql`
 		}
 	}
 `;
+
+export const GET_COLLECTION = gql`
+	query getCollection($id: String) {
+		litem(id: $id) {
+			id
+			itemID
+			data
+			keywords
+			status
+			numberOfRequests
+			data
+			props {
+				id
+				label
+				value
+			}
+			requests {
+				id
+				submissionTime
+				resolved
+				challenger
+				requestType
+			}
+		}
+	}
+`;

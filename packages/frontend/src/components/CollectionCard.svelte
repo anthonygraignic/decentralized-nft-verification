@@ -2,7 +2,7 @@
 	export let collection;
 </script>
 
-<div class="rounded-lg bg-white text-black py-5 px-2">
+<a href="/collections/{collection.id}" sveltekit:prefetch>
 	<dl>
 		<dt>Name</dt>
 		<dd>{collection.name || ''}</dd>
@@ -13,7 +13,7 @@
 			<dd>{collection.verifiedDate.toLocaleString()}</dd>
 		{/if}
 	</dl>
-</div>
+</a>
 
 <style lang="postcss">
 	dt {
@@ -21,5 +21,13 @@
 	}
 	dd {
 		@apply font-bold break-all;
+	}
+
+	a {
+		@apply bg-white text-black rounded-lg py-5 px-2;
+		text-decoration: none;
+	}
+	a:hover {
+		@apply bg-vblue-dark text-white;
 	}
 </style>
