@@ -27,7 +27,8 @@
 		@apply bg-white text-black rounded-lg py-5 px-2;
 		text-decoration: none;
 	}
-	a:hover {
-		@apply bg-vblue-dark text-white;
+	a:hover,
+	a:focus {
+		@apply bg-vblue-ligther ring-2 ring-white;
 	}
 </style>

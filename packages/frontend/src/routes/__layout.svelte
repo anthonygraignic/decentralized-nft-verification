@@ -5,9 +5,8 @@
 	import '../app.css';
 </script>
 
-<Header />
-<slot />
-<Footer />
-
-<style lang="postcss">
-</style>
+<div class="min-h-screen bg-vblue text-white">
+	<Header />
+	<slot />
+	<Footer />
+</div>

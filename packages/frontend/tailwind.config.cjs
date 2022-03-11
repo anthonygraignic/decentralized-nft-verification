@@ -8,7 +8,9 @@ module.exports = {
 			colors: {
 				vblue: '#0848F7',
 				'vblue-light': '#5280ff',
-				'vblue-dark': '#0030B2'
+				'vblue-ligther': '#D7E1FF',
+				'vblue-dark': '#0030B2',
+				'vgray-light': '#C0C0C0'
 			}
 		}
 	},

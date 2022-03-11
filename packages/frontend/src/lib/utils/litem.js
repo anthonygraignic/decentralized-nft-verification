@@ -1,14 +1,18 @@
 // TODO migrate to TS
 
 import { vars } from '$lib/env-variables';
-import { timestampinSecondsToDate } from './date-utils';
+import { CHALLENGE_PERIOD_IN_SECONDS, timestampinSecondsToDate } from './date-utils';
 
 // TODO improve search loops
 export function convertLitemToCollection(litem) {
 	console.log(litem);
 
-	const name = litem.props.find((element) => element.label === 'Name');
-	const address = litem.props.find((element) => element.label === 'Collection');
+	const name = litem.props.find((element) => element.label === 'Name')?.value;
+	const address = litem.props.find((element) => element.label === 'Collection')?.value;
+	const chainId = litem.props.find((element) => element.label === 'Chain ID')?.value;
+
+	const author = litem.props.find((element) => element.label === 'Author')?.value;
+	const attribution = litem.props.find((element) => element.label === 'Attribution')?.value;
 
 	// TODO handle errors
 	// convert bad formatted IPFS link
@@ -38,11 +42,16 @@ export function convertLitemToCollection(litem) {
 	return {
 		id: litem.id,
 		status: litem.status,
-		name: name?.value,
-		address: address?.value,
+		chainId,
+		name,
+		address,
+		author,
+		attribution,
 		proof,
 		thumbnail,
-		verifiedDate: timestampinSecondsToDate(verifiedRequest.submissionTime),
+		verifiedDate: timestampinSecondsToDate(
+			parseInt(verifiedRequest.submissionTime) + CHALLENGE_PERIOD_IN_SECONDS
+		),
 		requests: litem.requests
 	};
 }

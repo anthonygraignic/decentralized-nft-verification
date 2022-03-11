@@ -8,18 +8,14 @@ a {
 	text-decoration: underline;
 }
 
-body {
-	@apply bg-vblue text-white;
-}
-
 h1 {
-	@apply text-4xl mt-5;
+	@apply text-4xl pt-5;
 }
 
 h2 {
-	@apply text-2xl mt-2;
+	@apply text-2xl pt-2;
 }
 
 main {
-	min-height: 70vh;
+	min-height: 75vh;
 }

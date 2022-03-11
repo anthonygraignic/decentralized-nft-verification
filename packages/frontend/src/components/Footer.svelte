@@ -1,5 +1,5 @@
-<footer class="border-t-2 border-vblue-dark">
-	<div class="m-5">
+<footer class="border-t-2 border-vblue-dark bg-vblue text-white">
+	<div class="p-5">
 		<p class="font-bold mt-4">Project</p>
 		<div class="grid md:grid-cols-4 grid-cols-1 md:justify-items-center items-center">
 			<p class="md:col-span-2">
