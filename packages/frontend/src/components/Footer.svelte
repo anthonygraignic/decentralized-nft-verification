@@ -10,10 +10,10 @@
 				>
 				court to gather and display NFT collections that have been verified through the Kleros court
 				verification process.
-				<a href="/" rel="external noopener" target="_blank">Read more</a>
+				<a href="/about" sveltekit:prefetch>Read more</a>
 			</p>
-			<a href="/" rel="external noopener" target="_blank">Get involved</a>
-			<a href="/" rel="external noopener" target="_blank">Contact Verification DAO</a>
+			<a href="/about" sveltekit:prefetch>Get involved</a>
+			<a href="/about" sveltekit:prefetch>Contact Verification DAO</a>
 		</div>
 	</div>
 </footer>
