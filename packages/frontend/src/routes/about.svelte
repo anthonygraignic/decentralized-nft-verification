@@ -1,7 +1,7 @@
 <main class="container px-5">
 	<h1>What is Verification DAO ?</h1>
 
-	A community building &nbsp;<b>decentralized NFT collection verification</b> for collectors,
+	A community building &nbsp;<b>decentralized NFT collection verification</b> as a standard for collectors,
 	creators and developers.
 
 	<p>

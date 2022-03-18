@@ -9,7 +9,7 @@
 		{:else}
 			<img src="/logo.svg" alt="" />
 		{/if}
-		<p class="text-4xl font-bold mx-4 md:flex hidden">Verification DAO</p>
+		<p class="text-4xl font-bold mx-4 md:flex hidden">Verification DAO (alpha)</p>
 	</a>
 </header>
 
