@@ -35,6 +35,7 @@
 	import AddressLinkWrapper from '../../components/Blockchain/AddressLinkWrapper.svelte';
 	import StatusBadge from '../../components/StatusBadge.svelte';
 	import SubmissionTimeline from '../../components/Kleros/SubmissionTimeline.svelte';
+	import RegistryInfo from '../../components/Kleros/RegistryInfo.svelte';
 
 	export let collection;
 </script>
@@ -67,6 +68,11 @@
 			<dt>Blockchain</dt>
 			<dd>
 				{getChainNameFromIdStr(collection.chainId)}
+			</dd>
+
+			<dt>Verification Registry</dt>
+			<dd>
+				<RegistryInfo />
 			</dd>
 		</dl>
 	</div>
