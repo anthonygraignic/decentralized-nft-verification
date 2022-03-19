@@ -1,5 +1,6 @@
 <script>
 	import { CHALLENGE_PERIOD_IN_SECONDS, timestampinSecondsToDate } from '$lib/utils/date-utils';
+	import { isCollectionStatusRegistered } from '$lib/utils/litem';
 
 	import AddressLinkWrapper from '../Blockchain/AddressLinkWrapper.svelte';
 
@@ -39,7 +40,7 @@
 		</li>
 	{/each}
 
-	{#if collection.requests.length === 1 && collection.requests[0].requestType === 'RegistrationRequested'}
+	{#if collection.requests.length === 1 && isCollectionStatusRegistered(collection.requests[0].requestType)}
 		<li class="mb-10 ml-6">
 			<span
 				class="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full"

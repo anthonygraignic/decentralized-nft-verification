@@ -9,12 +9,18 @@
 	 */
 	export async function load({ params }) {
 		try {
+			// Get collection from Kleros Curated subgraph
 			const klerosCuratedCollection = await client.query({
 				variables: { id: params.id },
 				query: GET_COLLECTION
 			});
 
+			// Get evidences from IPFS
+
+
+			// Build to View object
 			const collection = convertLitemToCollection(klerosCuratedCollection.data.litem);
+
 
 			return {
 				status: klerosCuratedCollection.networkStatus,

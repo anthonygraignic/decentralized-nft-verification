@@ -29,6 +29,8 @@ export const COLLECTIONS = gql`
 	}
 `;
 
+// collection -> requests -> rounds -> evidences JSON files
+
 export const GET_COLLECTION = gql`
 	query getCollection($id: String) {
 		litem(id: $id) {
@@ -44,13 +46,45 @@ export const GET_COLLECTION = gql`
 				label
 				value
 			}
-			requests {
+			requests(orderBy: submissionTime, orderDirection: desc) {
 				id
 				submissionTime
 				resolved
 				challenger
 				requestType
+				disputed
+				disputeID
+				arbitrator
+				arbitratorExtraData
+				disputeOutcome
+				rounds {
+					id
+					rulingTime
+					ruling
+					creationTime
+					contributions {
+						id
+						contributor
+						withdrawable
+						side
+					}
+					numberOfContributions
+					amountPaidRequester
+					amountPaidChallenger
+					hasPaidRequester
+					hasPaidChallenger
+					feeRewards
+					appealPeriodStart
+					appealPeriodEnd
+					appealed
+				}
+				metaEvidence {
+					id
+					URI
+				}
 			}
+			disputed
+			latestChallenger
 		}
 	}
 `;

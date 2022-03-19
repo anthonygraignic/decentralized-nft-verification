@@ -55,3 +55,15 @@ export function convertLitemToCollection(litem) {
 		requests: litem.requests
 	};
 }
+
+
+/**
+ * Check if the status of a collection is Registered.
+ * Either because there were no challenge during the allocated period or because the court decided so.
+ * @param {*} status
+ * @returns
+ */
+export function isCollectionStatusRegistered(status) {
+	return status === 'RegistrationRequested';
+	// return status === 'Registered' || status === 'ClearingRequested';
+}
