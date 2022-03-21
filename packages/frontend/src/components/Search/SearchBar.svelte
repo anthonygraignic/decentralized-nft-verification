@@ -9,7 +9,7 @@
 	const dispatch = createEventDispatcher();
 
 	function doSearch() {
-		if (searchText.length >= MIN_INPUT_LENGTH) {
+		if (searchText && searchText.length >= MIN_INPUT_LENGTH) {
 			return dispatch('search', searchText);
 		} else {
 			return dispatch('clear');
