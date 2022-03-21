@@ -1,6 +1,6 @@
 <script>
 	import apolloClient from '$lib/apollo-client';
-	import { COLLECTIONS } from '$lib/kleros-curated/queries';
+	import { COLLECTIONS, SIMPLES } from '$lib/kleros-curated/queries';
 	import { convertLitemToCollection } from '$lib/utils/litem';
 
 	import ErrorComponent from '../ErrorComponent.svelte';
@@ -19,7 +19,8 @@
 		try {
 			const klerosCuratedListResults = await client.query({
 				variables: { search: searchText },
-				query: COLLECTIONS
+				// query: COLLECTIONS
+				query: SIMPLES
 			});
 			loading = klerosCuratedListResults.loading;
 

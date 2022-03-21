@@ -23,6 +23,35 @@ export const COLLECTIONS = gql`
 				submissionTime
 				resolved
 				challenger
+				requester
+				requestType
+			}
+		}
+	}
+`;
+export const SIMPLES = gql`
+	query searchSimples($search: String) {
+		litems(
+			where: { registry: "0xd5994f15be9987104d9821aa99d1c97227c7c08c", keywords_contains: $search }
+		) {
+			id
+			itemID
+			data
+			keywords
+			status
+			numberOfRequests
+			data
+			props {
+				id
+				label
+				value
+			}
+			requests {
+				id
+				submissionTime
+				resolved
+				challenger
+				requester
 				requestType
 			}
 		}
@@ -41,6 +70,7 @@ export const GET_COLLECTION = gql`
 			status
 			numberOfRequests
 			data
+			registryAddress
 			props {
 				id
 				label
@@ -51,6 +81,67 @@ export const GET_COLLECTION = gql`
 				submissionTime
 				resolved
 				challenger
+				requester
+				requestType
+				disputed
+				disputeID
+				arbitrator
+				arbitratorExtraData
+				disputeOutcome
+				rounds {
+					id
+					rulingTime
+					ruling
+					creationTime
+					contributions {
+						id
+						contributor
+						withdrawable
+						side
+					}
+					numberOfContributions
+					amountPaidRequester
+					amountPaidChallenger
+					hasPaidRequester
+					hasPaidChallenger
+					feeRewards
+					appealPeriodStart
+					appealPeriodEnd
+					appealed
+				}
+				metaEvidence {
+					id
+					URI
+				}
+			}
+			disputed
+			latestChallenger
+		}
+	}
+`;
+
+export const GET_SIMPLE = gql`
+	query getCollection($id: String) {
+		litem(id: $id) {
+			id
+			itemID
+			data
+			keywords
+			status
+			numberOfRequests
+			data
+			registryAddress
+			props {
+				id
+				label
+				value
+			}
+			requests(orderBy: submissionTime, orderDirection: desc) {
+				id
+				submissionTime
+				resolved
+				challenger
+				requester
 				requestType
 				disputed
 				disputeID

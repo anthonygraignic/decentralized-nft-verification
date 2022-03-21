@@ -1,4 +1,8 @@
-import { convertLitemToCollection, isCollectionStatusRegistered } from '$lib/utils/litem';
+import {
+	convertLitemToCollection,
+	getPolicyVersionFromUri,
+	isCollectionStatusRegistered
+} from '$lib/utils/litem';
 
 describe('litem-mapper', function () {
 	describe('convertLitemToCollection', function () {
@@ -145,6 +149,33 @@ describe('litem-mapper', function () {
 			const result = isCollectionStatusRegistered('Nope');
 			// Assert
 			expect(result).toBeFalsy();
+		});
+	});
+
+	describe('getPolicyVersionFromUri', function () {
+		it('getPolicyVersionFromUri 3', async () => {
+			// Arrange
+			const fileURI = '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/policy0.3.pdf';
+			// Act
+			const result = getPolicyVersionFromUri(fileURI);
+			// Assert
+			expect(result).toEqual('0.3');
+		});
+		it('getPolicyVersionFromUri unknown', async () => {
+			// Arrange
+			const fileURI = '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/policy.pdf';
+			// Act
+			const result = getPolicyVersionFromUri(fileURI);
+			// Assert
+			expect(result).toEqual('0');
+		});
+		it('getPolicyVersionFromUri unknown', async () => {
+			// Arrange
+			const fileURI = '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/d.pdf';
+			// Act
+			const result = getPolicyVersionFromUri(fileURI);
+			// Assert
+			expect(result).toEqual('???');
 		});
 	});
 });

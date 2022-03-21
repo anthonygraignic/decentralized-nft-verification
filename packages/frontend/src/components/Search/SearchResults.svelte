@@ -7,7 +7,7 @@
 </script>
 
 {#if loading}
-	<div class="flex items-center mx-4 my-2">
+	<div class="flex items-center justify-center mx-4 my-2">
 		<svg
 			class="animate-spin -ml-1 mr-3 h-5 w-5 text-white dark:text-black"
 			xmlns="http://www.w3.org/2000/svg"
