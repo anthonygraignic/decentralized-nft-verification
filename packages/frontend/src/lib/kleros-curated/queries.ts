@@ -34,6 +34,7 @@ export const COLLECTIONS = gql`
 `;
 // TODO Use where condition in LItems which won't search across all Kleros curated list
 // But keywords is case sensitive so use itemSearch seems a better option for now
+// Could concat text with `0x2f19f817bbf800b487b7f2e51f24ad5ea0222463 & $contractAddress` as in TCR
 export const COLLECTIONS_BY_CONTRACT_ADDRESS = gql`
 	query searchByContractAddress($contractAddress: String) {
 		itemSearch(text: $contractAddress) {
