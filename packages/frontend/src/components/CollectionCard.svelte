@@ -1,4 +1,6 @@
 <script>
+	import { isCollectionStatusRegistered } from '$lib/utils/litem';
+
 	export let collection;
 </script>
 
@@ -8,9 +10,13 @@
 		<dd>{collection.name || ''}</dd>
 		<dt>NFT Contract Address</dt>
 		<dd>{collection.address || ''}</dd>
-		<dt>Date of Verification</dt>
-		{#if collection.verifiedDate}
-			<dd>{collection.verifiedDate.toLocaleString()}</dd>
+		{#if isCollectionStatusRegistered(collection.status)}
+			<dt>Date of Verification</dt>
+			{#if collection.verifiedDate}
+				<dd>{collection.verifiedDate.toLocaleString()}</dd>
+			{/if}
+		{:else}
+			<p>Not verified</p>
 		{/if}
 	</dl>
 </a>
