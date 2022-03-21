@@ -1,6 +1,6 @@
 <script context="module">
 	import apolloClient from '$lib/apollo-client';
-	import { GET_COLLECTION, GET_SIMPLE } from '$lib/kleros-curated/queries';
+	import { GET_COLLECTION } from '$lib/kleros-curated/queries';
 	import { convertLitemToCollection, getEvidencefromIpfs } from '$lib/utils/litem';
 
 	const client = apolloClient;
@@ -12,8 +12,7 @@
 			// Get collection from Kleros Curated subgraph
 			const klerosCuratedCollection = await client.query({
 				variables: { id: params.id },
-				// query: GET_COLLECTION
-				query: GET_SIMPLE
+				query: GET_COLLECTION
 			});
 
 			// Get evidences from IPFS
