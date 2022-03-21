@@ -73,7 +73,7 @@
 		>).
 	</p>
 
-	<h1>Join us</h1>
+	<h1 id="join">Join us</h1>
 	<p>
 		Reach out to <a href="https://twitter.com/serglotz" rel="external noopener" target="_blank"
 			>Sergej</a
