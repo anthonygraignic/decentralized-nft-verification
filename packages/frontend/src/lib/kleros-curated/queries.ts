@@ -63,7 +63,8 @@ export const COLLECTIONS_BY_CONTRACT_ADDRESS = gql`
 `;
 
 // collection -> requests -> rounds -> evidences JSON files
-
+// Need to get evidences files from on-chain events 
+// see https://github.com/kleros/gtcr/blob/master/src/pages/light-item-details/index.js#L246
 export const GET_COLLECTION = gql`
 	query getCollection($id: String) {
 		litem(id: $id) {
