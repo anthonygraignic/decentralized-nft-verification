@@ -12,7 +12,10 @@
 				verification process.
 				<a href="/about" sveltekit:prefetch>Read more</a>
 			</p>
-			<a href="/about" sveltekit:prefetch>Get involved</a>
+			<div class="flex flex-col">
+				<a href="/about" sveltekit:prefetch>Get involved</a>
+				<a href="/supported-registries" sveltekit:prefetch>Supported registries</a>
+			</div>
 			<a href="/about#join" sveltekit:prefetch>Contact Verification DAO</a>
 		</div>
 	</div>
