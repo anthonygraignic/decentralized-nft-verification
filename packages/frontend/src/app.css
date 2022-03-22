@@ -19,3 +19,8 @@ h2 {
 main {
 	min-height: 75vh;
 }
+
+.a--loading {
+	cursor: not-allowed;
+	text-decoration: none;
+}

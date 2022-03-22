@@ -1,12 +1,19 @@
 <script>
 	export let searchText = undefined;
 
+	const MIN_INPUT_LENGTH = 2;
+	const MAX_INPUT_LENGTH = 42; // ETH address
+
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	function doSearch() {
-		return dispatch('search', searchText);
+		if (searchText && searchText.length >= MIN_INPUT_LENGTH) {
+			return dispatch('search', searchText);
+		} else {
+			return dispatch('clear');
+		}
 	}
 </script>
 
@@ -17,6 +24,8 @@
 			<input
 				type="text"
 				id="search"
+				minlength={MIN_INPUT_LENGTH}
+				maxlength={MAX_INPUT_LENGTH}
 				bind:value={searchText}
 				placeholder="NFT Name or Contract Address"
 				class="placeholder-vblue-light text-vblue rounded-lg w-full py-2 px-2 border border-white focus:outline-none focus:ring"

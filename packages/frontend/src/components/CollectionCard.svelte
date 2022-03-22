@@ -1,16 +1,28 @@
 <script>
+	import { isCollectionStatusRegistered } from '$lib/utils/litem';
+
 	export let collection;
+	export let loading = false;
 </script>
 
-<a href="/collections/{collection.id}" sveltekit:prefetch>
+<a
+	href="/collections/{collection.id}"
+	sveltekit:prefetch
+	class:a--loading={loading}
+	class:card--loading={loading}
+>
 	<dl>
-		<dt>Name</dt>
+		<dt class:dt--loading={loading}>Name</dt>
 		<dd>{collection.name || ''}</dd>
-		<dt>NFT Contract Address</dt>
+		<dt class:dt--loading={loading}>NFT Contract Address</dt>
 		<dd>{collection.address || ''}</dd>
-		<dt>Date of Verification</dt>
-		{#if collection.verifiedDate}
-			<dd>{collection.verifiedDate.toLocaleString()}</dd>
+		{#if isCollectionStatusRegistered(collection.status)}
+			<dt>Date of Verification</dt>
+			{#if collection.verifiedDate}
+				<dd>{collection.verifiedDate.toLocaleString()}</dd>
+			{/if}
+		{:else}
+			<p class:p--loading={loading}>Not verified</p>
 		{/if}
 	</dl>
 </a>
@@ -22,7 +34,6 @@
 	dd {
 		@apply font-bold break-all;
 	}
-
 	a {
 		@apply bg-white text-black rounded-lg py-5 px-2;
 		text-decoration: none;
@@ -30,5 +41,14 @@
 	a:hover,
 	a:focus {
 		@apply bg-vblue-ligther ring-2 ring-white;
+	}
+	.dt--loading {
+		@apply rounded bg-vblue-light mb-2 text-transparent;
+	}
+	.p--loading {
+		@apply rounded bg-vblue-light h-10 mb-2 text-transparent;
+	}
+	.card--loading {
+		@apply animate-pulse rounded w-full h-full bg-vblue-ligther;
 	}
 </style>
