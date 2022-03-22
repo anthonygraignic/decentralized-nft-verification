@@ -1,7 +1,15 @@
 module.exports = {
+	// Has to use Babel to support ESM with TS and not setup experimental settings
 	//https://kulshekhar.github.io/ts-jest/docs/guides/esm-support/
-	preset: 'ts-jest',
 	testEnvironment: 'node',
+	preset: 'ts-jest/presets/default-esm',
+	extensionsToTreatAsEsm: ['.ts'],
+	globals: {
+		'ts-jest': {
+			babelConfig: true,
+			useESM: true
+		}
+	},
 	transform: {
 		'^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
 		'^.+\\.ts$': 'ts-jest',
@@ -16,6 +24,6 @@ module.exports = {
 			'<rootDir>/.svelte-kit/build/runtime/app$1'
 		]
 	},
-	collectCoverageFrom: ['src/**/*.{ts,tsx,svelte,js,jsx}'],
+	collectCoverageFrom: ['src/**/*.{ts,svelte,js}'],
 	setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect']
 };

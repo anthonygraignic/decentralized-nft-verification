@@ -93,11 +93,11 @@ export function extractRegistryInfo(metaEvidence) {
  * @returns
  */
 export function getPolicyVersionFromUri(fileURI) {
-	const policyVersion = fileURI.split('/')[3].split('.pdf')[0].replace('policy', '');
+	const policyVersion = (fileURI.split('/policy')[1] || '???').replace('.pdf', '');
 	if (policyVersion === '') {
 		return '0';
 	} else {
-		return policyVersion || '???';
+		return policyVersion;
 	}
 }
 

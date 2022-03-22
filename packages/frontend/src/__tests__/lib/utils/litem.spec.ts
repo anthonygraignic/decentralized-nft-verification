@@ -131,7 +131,16 @@ describe('litem-mapper', function () {
 			const result = convertLitemToCollection(litem);
 			// Assert
 			expect(result).toBeDefined();
-			// TODO add tests on fields
+			// Props
+			expect(result.name).toBe('Woman #5625');
+			expect(result.address).toBe('0xe785E82358879F061BC3dcAC6f0444462D4b5330');
+			expect(result.chainId).toBe('1');
+			expect(result.author).toBe('Yam Karkai');
+			expect(result.attribution).toBeNull();
+			expect(result.proof).toBeUndefined();
+			expect(result.thumbnail).toBe(
+				'https://ipfs.kleros.io/ipfs/QmSvj2kxcpJwdoky1xqjg76Jtd2hHzZWWefds6s5Ebxokc/woman5625.webp'
+			);
 		});
 	});
 
@@ -171,7 +180,7 @@ describe('litem-mapper', function () {
 		});
 		it('getPolicyVersionFromUri unknown', async () => {
 			// Arrange
-			const fileURI = '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/d.pdf';
+			const fileURI = '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/d.jpg';
 			// Act
 			const result = getPolicyVersionFromUri(fileURI);
 			// Assert
