@@ -4,29 +4,60 @@
 	import ErrorComponent from '../../components/ErrorComponent.svelte';
 	import FileInput from '../../components/Form/FileInput.svelte';
 	import Switch from '../../components/Form/Switch.svelte';
+	import { add, connectIpfs, uploadFile } from '$lib/ipfs';
+	import { vars } from '$lib/env-variables';
+	import { load } from './[id].svelte';
 
-	export let fields = {
+	let fields = {
 		chainId: ''
 	};
 
-	export let loading = false;
-	export let error;
+	let loading = false;
+	let loadingText = 'Loading';
+	let error;
 
 	let enableSocials = false;
 	let enableProof = false;
 	let enableInvestment = false;
 
-	// if (vars.DEV) {
-	// 	fields = {};
-	// }
-	function onSubmit() {
+	let thumbnailFiles;
+	let proofFiles;
+
+	if (vars.DEV) {
+		fields = { chainId: '1', address: '0x123', name: 'Collection Test', author: 'Anthony' };
+	}
+	async function onSubmit() {
 		loading = true;
-		setTimeout(() => {
-			alert(JSON.stringify(fields));
-			loading = false;
+		setTimeout(async () => {
+			try {
+				loadingText = 'Connecting to IPFS...';
+				await connectIpfs();
+				if (thumbnailFiles && thumbnailFiles[0]) {
+					loadingText = 'Uploading thumbnail to IPFS...';
+					fields.thumbnail = await uploadFile(thumbnailFiles[0]);
+				}
+				if (enableProof && proofFiles && proofFiles[0]) {
+					loadingText = 'Uploading proof to IPFS...';
+					fields.proof = await uploadFile(proofFiles[0]);
+				}
+
+				// Notify user
+				alert(JSON.stringify(fields));
+			} catch (err) {
+				error = err;
+			} finally {
+				loading = false;
+			}
 		}, 5000);
 	}
 </script>
+
+<svelte:head>
+	<script
+		src="https://cdn.jsdelivr.net/npm/ipfs-http-client@56.0.1/index.min.js"
+		integrity="sha256-wSeBy8TCPMSoDkG1GDex5t3rckH1lwVyGdbRPGjRDTY="
+		crossorigin="anonymous"></script>
+</svelte:head>
 
 <main>
 	<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
@@ -100,6 +131,7 @@
 					label="Upload thumbnail"
 					helpText="A thumbnail representative of the collection"
 					accept="image/*"
+					bind:files={thumbnailFiles}
 				/>
 			</div>
 		</fieldset>
@@ -136,7 +168,7 @@
 		{#if enableProof}
 			<fieldset class="form__fieldset">
 				<div class="form__input-group">
-					<FileInput id="proof" label="Upload Proof" accept=".txt,.pdf" />
+					<FileInput id="proof" label="Upload Proof" accept=".txt,.pdf" bind:files={proofFiles} />
 				</div>
 			</fieldset>
 		{/if}
@@ -156,6 +188,6 @@
 		{/if}
 
 		<ErrorComponent {error} />
-		<LoadingButton {loading} defaultText="Submit" disabled={error} />
+		<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={error} />
 	</form>
 </main>
