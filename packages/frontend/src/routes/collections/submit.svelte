@@ -4,9 +4,8 @@
 	import ErrorComponent from '../../components/ErrorComponent.svelte';
 	import FileInput from '../../components/Form/FileInput.svelte';
 	import Switch from '../../components/Form/Switch.svelte';
-	import { add, connectIpfs, uploadFile } from '$lib/ipfs';
+	import { connectIpfs, uploadFile } from '$lib/ipfs';
 	import { vars } from '$lib/env-variables';
-	import { load } from './[id].svelte';
 
 	let fields = {
 		chainId: ''
