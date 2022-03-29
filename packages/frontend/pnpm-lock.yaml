@@ -24,6 +24,7 @@ specifiers:
   jest: ^27.5.1
   jest-transform-stub: ^2.0.0
   postcss: ^8.4.12
+  postcss-import: ^14.1.0
   prettier: ^2.6.0
   prettier-plugin-svelte: ^2.6.0
   svelte: ^3.46.4
@@ -63,6 +64,7 @@ devDependencies:
   jest: 27.5.1
   jest-transform-stub: 2.0.0
   postcss: 8.4.12
+  postcss-import: 14.1.0_postcss@8.4.12
   prettier: 2.6.0
   prettier-plugin-svelte: 2.6.0_prettier@2.6.0+svelte@3.46.4
   svelte: 3.46.4
@@ -4667,6 +4669,11 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /pify/2.3.0:
+    resolution: {integrity: sha1-7RQaasBDqEnqWISY59yosVMw6Qw=}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /pirates/4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
@@ -4746,6 +4753,18 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.12
+    dev: true
+
+  /postcss-import/14.1.0_postcss@8.4.12:
+    resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.12
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.0
     dev: true
 
   /postcss-js/4.0.0_postcss@8.4.12:
@@ -5104,6 +5123,12 @@ packages:
 
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
+    dev: true
+
+  /read-cache/1.0.0:
+    resolution: {integrity: sha1-5mTvMRYRZsl1HNvo28+GtftY93Q=}
+    dependencies:
+      pify: 2.3.0
     dev: true
 
   /readdirp/3.6.0:

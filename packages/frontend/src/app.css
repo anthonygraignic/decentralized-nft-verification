@@ -1,26 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+@import './css/font.css';
+@import './css/base.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-a {
-	text-decoration: underline;
-}
-
-h1 {
-	@apply text-4xl pt-5;
-}
-
-h2 {
-	@apply text-2xl pt-2;
-}
-
-main {
-	min-height: 75vh;
-}
-
-.a--loading {
-	cursor: not-allowed;
-	text-decoration: none;
-}
+@import './css/common.css';
+@import './css/components/form.css';

@@ -1,0 +1,19 @@
+.form__title {
+	@apply mb-6;
+}
+
+.form__label {
+	@apply font-medium text-gray-900 dark:text-gray-300;
+}
+.form__input {
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-vblue focus:border-vblue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-vblue dark:focus:border-vblue;
+}
+.form__wrapper {
+	@apply flex flex-col max-w-xl mx-auto justify-items-center mb-10;
+}
+.form__fieldset {
+	@apply mt-4 pl-1 border-l border-vblue;
+}
+.form__input-group {
+	@apply flex flex-col justify-between flex-wrap;
+}

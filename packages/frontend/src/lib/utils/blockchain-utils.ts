@@ -1,3 +1,9 @@
+export const chains = [
+	{ id: '1', name: 'Ethereum' },
+	{ id: '100', name: 'xDAI' },
+	{ id: '137', name: 'Polygon' }
+];
+
 export function getChainNameFromId(chainId: number): string {
 	// For more chainIDs see https://github.com/DefiLlama/chainlist/blob/main/components/chains.js
 	switch (chainId) {
