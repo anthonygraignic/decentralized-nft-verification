@@ -18,8 +18,13 @@
 	<!-- {@debug collection} -->
 	{#each collection.requests as request}
 		{@const submissionDateTime = timestampinSecondsToDate(request.submissionTime)}
-		{@const challengePeriodInDays = CHALLENGE_PERIOD_IN_SECONDS / 3600 / 24}
+		<!-- {@const challengePeriodInDays = CHALLENGE_PERIOD_IN_SECONDS / 3600 / 24} -->
 		{#if request.disputed}
+			<a
+				href="https://court.kleros.io/cases/{request.disputeID}"
+				target="_blank"
+				rel="external noopener">See dispute in Kleros court</a
+			>
 			{#each request.rounds as round}
 				<SubmissionTimelineItem
 					datetime={timestampinSecondsToDate(round.creationTime)}
@@ -35,7 +40,7 @@
 				<EvidenceItem {evidence} />
 			{/each}
 		{/if}
-		{#if request.requestType === 'RegistrationRequested' && (request.disputeOutcome === 'None' || request.disputeOutcome === 'Accept')}
+		{#if request.resolved && !request.disputed && request.requestType === 'RegistrationRequested' && (request.disputeOutcome === 'None' || request.disputeOutcome === 'Accept')}
 			<SubmissionTimelineItem
 				datetime={timestampinSecondsToDate(request.resolutionTime)}
 				{collectionVerified}
