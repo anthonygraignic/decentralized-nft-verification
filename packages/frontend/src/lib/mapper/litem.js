@@ -1,12 +1,10 @@
 // TODO migrate to TS
 
-import { CHALLENGE_PERIOD_IN_SECONDS, timestampinSecondsToDate } from './date-utils';
-import { convertToIpfsGatewayLink } from './ipfs-utils';
+import { CHALLENGE_PERIOD_IN_SECONDS, timestampinSecondsToDate } from '../utils/date-utils';
+import { convertToIpfsGatewayLink } from '../utils/ipfs-utils';
 
 // TODO improve search loops
-export function convertLitemToCollection(litem) {
-	console.log(litem);
-
+export function convertLitemToCollection(litem, evidenceFiles) {
 	const name = litem.props.find((element) => element.label === 'Name')?.value;
 	const address = litem.props.find((element) => element.label === 'Collection')?.value;
 	const chainId = litem.props.find((element) => element.label === 'Chain ID')?.value;
@@ -30,6 +28,23 @@ export function convertLitemToCollection(litem) {
 		(element) => element.requestType === 'RegistrationRequested'
 	);
 
+	let requests;
+	if (evidenceFiles) {
+		requests = litem.requests.map((request, i) => {
+			return {
+				...request,
+				evidences: request.evidences.map((evidences, j) => {
+					return {
+						...evidences[j],
+						content: evidenceFiles[i][j]
+					};
+				})
+			};
+		});
+	} else {
+		requests = litem.requests;
+	}
+
 	return {
 		id: litem.id,
 		status: litem.status,
@@ -43,33 +58,8 @@ export function convertLitemToCollection(litem) {
 		verifiedDate: timestampinSecondsToDate(
 			parseInt(verifiedRequest.submissionTime) + CHALLENGE_PERIOD_IN_SECONDS
 		),
-		requests: litem.requests
+		requests
 	};
-}
-
-export async function getEvidencefromIpfs(fetch, litem) {
-	if (litem) {
-		let registry = {};
-		for (const request of litem.requests) {
-			console.log(request);
-
-			if (request.metaEvidence) {
-				const metaEvidenceRequest = await fetch(convertToIpfsGatewayLink(request.metaEvidence.URI));
-				const metaEvidence = await metaEvidenceRequest.json();
-				console.log(metaEvidence);
-				registry = extractRegistryInfo(metaEvidence);
-			}
-
-			for (const round of request.rounds) {
-				if (round.metaEvidence) {
-					const metaEvidenceRequest = await fetch(convertToIpfsGatewayLink(round.metaEvidence.URI));
-					const metaEvidence = await metaEvidenceRequest.json();
-					console.log(metaEvidence);
-				}
-			}
-		}
-		return { registry, evidence: '' };
-	}
 }
 
 /**

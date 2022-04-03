@@ -138,3 +138,9 @@ export function isChainIdSupported(supportedChainId: number, chainId: number): b
 	// }
 	return supportedChainId === chainId;
 }
+
+export function shortenAddress(address: string): string {
+	if (!address) return '';
+
+	return `${address.slice(0, 6)}..${address.slice(-4)}`;
+}
