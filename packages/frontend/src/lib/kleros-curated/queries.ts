@@ -117,6 +117,7 @@ export const GET_COLLECTION = gql`
 			  arbitrator
 			  arbitratorExtraData
 			  disputeOutcome
+			  resolutionTime
 			  rounds {
 				id
 				rulingTime

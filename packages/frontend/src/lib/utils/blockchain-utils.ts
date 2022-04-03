@@ -22,3 +22,9 @@ export function getChainNameFromId(chainId: number): string {
 export function getChainNameFromIdStr(chainId: string): string {
 	return getChainNameFromId(parseInt(chainId, 10));
 }
+
+export function shortenAddress(address: string): string {
+	if (!address) return '';
+
+	return `${address.slice(0, 6)}..${address.slice(-4)}`;
+}
