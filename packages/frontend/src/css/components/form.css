@@ -12,8 +12,13 @@
 	@apply flex flex-col max-w-xl mx-auto justify-items-center mb-10;
 }
 .form__fieldset {
-	@apply mt-4 pl-1 border-l border-vblue;
+	@apply mt-4 pl-1;
 }
 .form__input-group {
 	@apply flex flex-col justify-between flex-wrap;
+}
+
+.form__fieldset :disabled {
+	cursor: not-allowed;
+	text-decoration: none;
 }

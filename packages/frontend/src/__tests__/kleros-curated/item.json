@@ -1,0 +1,61 @@
+{
+    "columns": [
+        {
+            "label": "Thumbnail",
+            "description": "A thumbnail representative of the collection",
+            "type": "image",
+            "isIdentifier": false
+        },
+        {
+            "label": "Name",
+            "description": "Official name of the collection",
+            "type": "text",
+            "isIdentifier": true
+        },
+        {
+            "label": "Author",
+            "description": "Author's name if relevant",
+            "type": "text",
+            "isIdentifier": true
+        },
+        {
+            "label": "Collection",
+            "description": "The collection's address",
+            "type": "address",
+            "isIdentifier": true
+        },
+        {
+            "label": "Chain ID",
+            "description": "The ID of the chain on which the collection resides",
+            "type": "number",
+            "isIdentifier": true
+        },
+        {
+            "label": "Webpage",
+            "description": "The collection's canonical webpage",
+            "type": "link",
+            "isIdentifier": false
+        },
+        {
+            "label": "Proof",
+            "description": "Optional proof of authenticity",
+            "type": "file",
+            "allowedFileTypes": "pdf txt"
+        },
+        {
+            "label": "Attribution",
+            "description": "Optional attribution",
+            "type": "long text"
+        }
+    ],
+    "values": {
+        "Thumbnail": "/ipfs/QmdevPFdTDW3tG5ZwT3R3qKpLtogg6QawP4mRwEi5WeRPc/coolman-s-universe.webp",
+        "Name": "Coolman's Universe",
+        "Author": "coolman coffeedan",
+        "Collection": "0xa5C0Bd78D1667c13BFB403E2a3336871396713c5",
+        "Chain ID": "1",
+        "Proof": "",
+        "Attribution": "",
+        "Webpage": ""
+    }
+}

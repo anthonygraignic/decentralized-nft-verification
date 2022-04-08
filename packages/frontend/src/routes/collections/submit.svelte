@@ -1,21 +1,31 @@
 <script>
-	import { chains } from '$lib/utils/blockchain-utils';
+	import { chains, registries } from '$lib/utils/blockchain-utils';
 	import LoadingButton from '../../components/LoadingButton.svelte';
 	import ErrorComponent from '../../components/ErrorComponent.svelte';
 	import FileInput from '../../components/Form/FileInput.svelte';
 	import Switch from '../../components/Form/Switch.svelte';
 	import { connectIpfs, uploadFile } from '$lib/ipfs';
 	import { vars } from '$lib/env-variables';
+	import { transformToGTCRItem } from '$lib/kleros-curated/gtcr-submission';
+	import ipfsPublish from '$lib/ipfs-publish.js';
 
 	let fields = {
-		chainId: ''
+		chainId: '',
+		registryId: registries[0].id
 	};
 
 	let loading = false;
 	let loadingText = 'Loading';
 	let error;
 
-	let enableSocials = false;
+	let acceptPolicy = false;
+	let acceptDeposit = false;
+
+	$: canSubmit = !error && acceptPolicy && acceptDeposit;
+
+	$: chosenRegistry = registries.find((registry) => registry.id === fields.registryId);
+
+	let enableSocials = true;
 	let enableProof = false;
 	let enableInvestment = false;
 
@@ -23,7 +33,13 @@
 	let proofFiles;
 
 	if (vars.DEV) {
-		fields = { chainId: '1', address: '0x123', name: 'Collection Test', author: 'Anthony' };
+		fields = {
+			...fields,
+			chainId: '1',
+			address: '0x123',
+			name: 'Collection Test',
+			author: 'Anthony'
+		};
 	}
 	async function onSubmit() {
 		loading = true;
@@ -31,6 +47,7 @@
 			try {
 				loadingText = 'Connecting to IPFS...';
 				await connectIpfs();
+
 				if (thumbnailFiles && thumbnailFiles[0]) {
 					loadingText = 'Uploading thumbnail to IPFS...';
 					fields.thumbnail = await uploadFile(thumbnailFiles[0]);
@@ -40,9 +57,23 @@
 					fields.proof = await uploadFile(proofFiles[0]);
 				}
 
+				// Upload metadata file
+				const item = transformToGTCRItem(chosenRegistry.columns, fields);
+				const enc = new TextEncoder();
+				const fileData = enc.encode(JSON.stringify(item));
+				loadingText = 'Uploading item to IPFS...';
+				const ipfsEvidenceObject = await ipfsPublish('v-item.json', fileData);
+				const ipfsEvidencePath = `/ipfs/${ipfsEvidenceObject[1].hash + ipfsEvidenceObject[0].path}`;
+
+				loadingText = 'Waiting for transaction...';
+				// Request signature and submit.
+				// const tx = await gtcr.addItem(ipfsEvidencePath, {
+				// 	value: chosenRegistry.submissionDeposit
+				// });
+
 				// Notify user
-				alert(JSON.stringify(fields));
 			} catch (err) {
+				console.error(err);
 				error = err;
 			} finally {
 				loading = false;
@@ -61,6 +92,28 @@
 <main>
 	<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
 		<h1 class="form__title">Submit your collection</h1>
+		<p class="bg-yellow-200 rounded-lg p-4">
+			⚠️<em>Only the Kleros Curated List's registry is supported for now.</em>
+		</p>
+		<h2>Verifying for</h2>
+		<fieldset class="form__fieldset">
+			<div class="form__input-group">
+				<label for="registry" class="form__label">Verification registry</label>
+				<!-- Disabled for now -->
+				<select
+					class="form__input"
+					name="registry"
+					id="registry"
+					bind:value={fields.registryId}
+					disabled
+				>
+					{#each registries as registry}
+						<option value={registry.id}>{registry.name}</option>
+					{/each}
+				</select>
+				<p>{chosenRegistry?.description || ''}</p>
+			</div>
+		</fieldset>
 		<h2>Contract details</h2>
 		<fieldset class="form__fieldset">
 			<div class="form__input-group">
@@ -108,7 +161,7 @@
 					type="text"
 					id="author"
 					name="author"
-					placeholder="Leonard Da Vinci"
+					placeholder="Leonard Da Vinci, Other"
 					required
 					bind:value={fields.author}
 				/>
@@ -151,7 +204,6 @@
 						id="website"
 						name="website"
 						placeholder="https://leonard.eth"
-						required
 						bind:value={fields.website}
 					/>
 				</div>
@@ -186,7 +238,47 @@
 			</fieldset>
 		{/if}
 
-		<ErrorComponent {error} />
-		<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={error} />
+		<h2>Policy</h2>
+		<fieldset class="form__fieldset">
+			<div class="flex items-center mb-4 ml">
+				<input
+					id="checkbox-policy"
+					aria-describedby="checkbox-policy"
+					type="checkbox"
+					class="w-4 h-4 text-vblue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+					bind:checked={acceptPolicy}
+				/>
+				<label
+					for="checkbox-policy"
+					class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+				>
+					My submission complies with the <a
+						href="/"
+						class="text-blue-600 hover:underline dark:text-blue-500"
+						>registry policy.
+					</a> I understand that I can lose my deposit if not.
+				</label>
+			</div>
+			<div class="flex items-center mb-4">
+				<input
+					id="checkbox-deposit"
+					aria-describedby="checkbox-deposit"
+					type="checkbox"
+					class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+					bind:checked={acceptDeposit}
+				/>
+				<label
+					for="checkbox-deposit"
+					class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+					>I understand that a <span class="font-bold"
+						>{chosenRegistry.submissionDeposit || '???'}
+						{chosenRegistry.submissionDepositToken || '???'}</span
+					> deposit is required</label
+				>
+			</div>
+		</fieldset>
+
+		<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={!canSubmit} />
 	</form>
+	<ErrorComponent {error} />
 </main>

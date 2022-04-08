@@ -18,7 +18,12 @@
 				<CollectionCard {collection} />
 			{/each}
 		{:else}
-			<p in:fade class="sm:col-span-2 lg:col-span-3">No results</p>
+			<div class="sm:col-span-2 lg:col-span-3">
+				<p in:fade class="">
+					No results.
+					<a href="/collections/submit" sveltekit:prefetch>Submit it</a>
+				</p>
+			</div>
 		{/if}
 	{/if}
 </div>
