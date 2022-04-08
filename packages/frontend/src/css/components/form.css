@@ -22,3 +22,7 @@
 	cursor: not-allowed;
 	text-decoration: none;
 }
+
+.form__result {
+	@apply text-center pb-4;
+}

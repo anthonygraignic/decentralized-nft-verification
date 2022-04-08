@@ -26,6 +26,6 @@
 
 <style lang="postcss">
 	p {
-		@apply py-8 text-center text-red-600 text-sm;
+		@apply py-2 text-center text-red-600 text-sm;
 	}
 </style>
