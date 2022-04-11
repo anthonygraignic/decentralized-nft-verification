@@ -23,7 +23,7 @@
 				<dd>{collection.verifiedDate.toLocaleString()}</dd>
 			{/if}
 		{:else}
-			<p class:p--loading={loading}>Not verified</p>
+			<p class:p--loading={loading}>Verification failed ❌️</p>
 		{/if}
 	</dl>
 </a>

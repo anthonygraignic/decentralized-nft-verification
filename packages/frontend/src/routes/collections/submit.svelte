@@ -287,12 +287,12 @@
 							id="checkbox-policy"
 							aria-describedby="checkbox-policy"
 							type="checkbox"
-							class="w-4 h-4 text-vblue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+							class="w-4 h-4 flex-none text-vblue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 							bind:checked={acceptPolicy}
 						/>
 						<label
 							for="checkbox-policy"
-							class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+							class="ml-3 shrink text-sm font-medium text-gray-900 dark:text-gray-300"
 						>
 							My submission complies with the <a
 								href={convertToIpfsGatewayLink(chosenRegistry.policyLink)}
@@ -308,12 +308,12 @@
 							id="checkbox-deposit"
 							aria-describedby="checkbox-deposit"
 							type="checkbox"
-							class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+							class="w-4 h-4 flex-none text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 							bind:checked={acceptDeposit}
 						/>
 						<label
 							for="checkbox-deposit"
-							class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+							class="ml-3 shrink text-sm font-medium text-gray-900 dark:text-gray-300"
 							>I understand that a <span class="font-bold"
 								>{chosenRegistry.submissionDeposit || '???'}
 								{getChainSymbolFromIdStr(getChainFromRegistryId(chosenRegistry.id)) || '???'}</span
@@ -334,3 +334,9 @@
 		</p>
 	{/if}
 </main>
+
+<style lang="postcss">
+	main {
+		@apply px-5;
+	}
+</style>

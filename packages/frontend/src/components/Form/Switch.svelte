@@ -4,12 +4,12 @@
 	export let checked = false;
 </script>
 
-<label for={id} class="flex relative items-center mb-4 cursor-pointer">
+<label for={id} class="flex relative mb-4 cursor-pointer">
 	<input type="checkbox" {id} name={id} class="sr-only" bind:checked />
 	<div
 		class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg dark:bg-gray-700 dark:border-gray-600"
 	/>
-	<span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{text}</span>
+	<span class="ml-3 text-sm self-center font-medium text-gray-900 dark:text-gray-300">{text}</span>
 </label>
 
 <style lang="postcss">

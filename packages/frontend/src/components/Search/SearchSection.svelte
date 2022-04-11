@@ -44,7 +44,15 @@
 </script>
 
 <!-- TODO Make a store for last searches & make an autocomplete search bar -->
-<SearchBar bind:searchText on:search={() => search()} on:clear={() => (results = [])} />
+<div class="search">
+	<SearchBar bind:searchText on:search={() => search()} on:clear={() => (results = [])} />
+</div>
 <ErrorComponent {error}>
 	<SearchResults {results} {loading} />
 </ErrorComponent>
+
+<style lang="postcss">
+	.search {
+		@apply mx-auto max-w-xl;
+	}
+</style>

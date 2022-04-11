@@ -19,7 +19,7 @@
 			{/each}
 		{:else}
 			<div class="sm:col-span-2 lg:col-span-3">
-				<p in:fade class="">
+				<p in:fade>
 					No results.
 					<a href="/collections/submit" sveltekit:prefetch>Submit it</a>
 				</p>
