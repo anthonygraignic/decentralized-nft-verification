@@ -1,6 +1,6 @@
 // ipfs-publish.js
 // Borrowed from https://kleros.gitbook.io/docs/developer/light-curate
-import deepEqual from 'fast-deep-equal/es6';
+import deepEqual from 'fast-deep-equal';
 import { Buffer } from 'buffer';
 import { vars } from './env-variables';
 
