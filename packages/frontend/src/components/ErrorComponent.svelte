@@ -26,7 +26,7 @@
 
 <style lang="postcss">
 	div {
-		@apply my-4 rounded-lg;
+		@apply bg-white my-4 rounded-lg max-w-xl mx-auto;
 	}
 	p {
 		@apply py-2 text-center text-red-600 text-sm;
