@@ -38,7 +38,7 @@
 
 <style lang="postcss">
 	.wrapper {
-		@apply flex justify-center items-center;
+		@apply flex justify-center items-center mt-5;
 	}
 	.wrapper svg {
 		@apply w-4 h-4 mr-2 -ml-1 text-[#626890];

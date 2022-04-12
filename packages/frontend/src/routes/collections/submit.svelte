@@ -130,43 +130,44 @@
 </svelte:head>
 
 <main>
-	<OnlyConnected bind:error>
-		<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
-			<h1 class="form__title">Submit your collection</h1>
-			<p class="form__info">
-				Verification DAO submits this form to the Kleros NFT Curated List verification process for
-				now.
-				<br />
-				Once submitted, it will go in a challenge phase of {chosenRegistry.challengePeriodDuration /
-					24} days to verify.
-				<br />
-				Delays may occur where there are disputes for submissions. You can check on the status of the
-				submission in the Kleros court.
-				<br />
-				<a href="/about" sveltekit:prefetch>Read more about the process.</a>
-			</p>
-			<!-- <p class="bg-yellow-200 rounded-lg p-4">
+	<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
+		<h1 class="form__title">Submit your collection</h1>
+		<p class="form__info">
+			Verification DAO submits this form to the Kleros NFT Curated List verification process for
+			now.
+			<br />
+			Once submitted, it will go in a challenge phase of {chosenRegistry.challengePeriodDuration /
+				24} days to verify.
+			<br />
+			Delays may occur where there are disputes for submissions. You can check on the status of the submission
+			in the Kleros court.
+			<br />
+			<a href="/about" sveltekit:prefetch>Read more about the process.</a>
+		</p>
+		<!-- <p class="bg-yellow-200 rounded-lg p-4">
 				⚠️<em>Only the Kleros Curated List's registry is supported for now.</em>
 			</p> -->
-			<h2>Verifying for</h2>
-			<fieldset class="form__fieldset">
-				<div class="form__input-group">
-					<label for="registry" class="form__label">Verification registry</label>
-					<!-- Disabled for now -->
-					<select
-						class="form__input"
-						name="registry"
-						id="registry"
-						bind:value={fields.registryId}
-						disabled
-					>
-						{#each registries as registry}
-							<option value={registry.id}>{registry.name}</option>
-						{/each}
-					</select>
-					<p>{chosenRegistry?.description || ''}</p>
-				</div>
-			</fieldset>
+		<h2>Verifying for</h2>
+		<fieldset class="form__fieldset">
+			<div class="form__input-group">
+				<label for="registry" class="form__label">Verification registry</label>
+				<!-- Disabled for now -->
+				<select
+					class="form__input"
+					name="registry"
+					id="registry"
+					bind:value={fields.registryId}
+					disabled
+				>
+					{#each registries as registry}
+						<option value={registry.id}>{registry.name}</option>
+					{/each}
+				</select>
+				<p>{chosenRegistry?.description || ''}</p>
+				<a href="/supported-registries" sveltekit:prefetch>Learn more about supported registries</a>
+			</div>
+		</fieldset>
+		<OnlyConnected bind:error>
 			<OnlySupportedChain
 				supportedChainId={parseInt(getChainFromRegistryId(chosenRegistry.id), 10)}
 			>
@@ -351,8 +352,8 @@
 
 				<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={!canSubmit} />
 			</OnlySupportedChain>
-		</form>
-	</OnlyConnected>
+		</OnlyConnected>
+	</form>
 	<ErrorComponent {error} />
 	{#if txTransaction}
 		<p class="form__result">
@@ -365,6 +366,12 @@
 <style lang="postcss">
 	main {
 		@apply px-5;
+	}
+	h2 {
+		@apply pt-12;
+	}
+	a {
+		@apply mt-2;
 	}
 	/* see form.css */
 </style>
