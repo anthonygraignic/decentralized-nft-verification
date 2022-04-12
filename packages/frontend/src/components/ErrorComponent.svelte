@@ -3,7 +3,7 @@
 </script>
 
 {#if error}
-	<div class="bg-white my-4 rounded-lg">
+	<div>
 		{#if Object.keys(error).length > 0}
 			<p>
 				{#if error.code || error.reason?.code}
@@ -25,6 +25,9 @@
 {/if}
 
 <style lang="postcss">
+	div {
+		@apply my-4 rounded-lg;
+	}
 	p {
 		@apply py-2 text-center text-red-600 text-sm;
 	}

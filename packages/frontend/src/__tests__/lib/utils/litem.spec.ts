@@ -2,7 +2,7 @@ import {
 	convertLitemToCollection,
 	getPolicyVersionFromUri,
 	isCollectionStatusRegistered
-} from '$lib/utils/litem';
+} from '$lib/mapper/litem';
 
 describe('litem-mapper', function () {
 	describe('convertLitemToCollection', function () {

@@ -1,5 +1,6 @@
 <script>
-	import { isCollectionStatusRegistered } from '$lib/utils/litem';
+	import { isCollectionStatusRegistered } from '$lib/mapper/litem';
+	import { shortenAddress } from '$lib/utils/blockchain-utils';
 
 	export let collection;
 	export let loading = false;
@@ -15,14 +16,14 @@
 		<dt class:dt--loading={loading}>Name</dt>
 		<dd>{collection.name || ''}</dd>
 		<dt class:dt--loading={loading}>NFT Contract Address</dt>
-		<dd>{collection.address || ''}</dd>
+		<dd>{shortenAddress(collection.address)}</dd>
 		{#if isCollectionStatusRegistered(collection.status)}
 			<dt>Date of Verification</dt>
 			{#if collection.verifiedDate}
 				<dd>{collection.verifiedDate.toLocaleString()}</dd>
 			{/if}
 		{:else}
-			<p class:p--loading={loading}>Not verified</p>
+			<p class:p--loading={loading}>Verification failed ❌️</p>
 		{/if}
 	</dl>
 </a>

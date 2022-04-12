@@ -1,5 +1,5 @@
 <script>
-	import { isCollectionStatusRegistered } from '$lib/utils/litem';
+	import { isCollectionStatusRegistered } from '$lib/mapper/litem';
 
 	export let status;
 </script>

@@ -18,9 +18,9 @@
 </script>
 
 <form on:submit|preventDefault={doSearch}>
-	<div class="relative flex flex-wrap items-stretch mt-3 justify-items-center">
-		<div class="w-full">
-			<label for="search" class="sr-only">NFT Name or Contract Address</label>
+	<div class="search__bar">
+		<div class="search_input">
+			<label for="search">NFT Name or Contract Address</label>
 			<input
 				type="text"
 				id="search"
@@ -28,10 +28,9 @@
 				maxlength={MAX_INPUT_LENGTH}
 				bind:value={searchText}
 				placeholder="NFT Name or Contract Address"
-				class="placeholder-vblue-light text-vblue rounded-lg w-full py-2 px-2 border border-white focus:outline-none focus:ring"
 			/>
 		</div>
-		<span class="z-10 h-full absolute right-0 pr-2 py-2 w-8">
+		<span class="search__action">
 			<button on:click={doSearch}>
 				<svg
 					width="25"
@@ -80,3 +79,21 @@
 		</span>
 	</div>
 </form>
+
+<style lang="postcss">
+	.search__bar {
+		@apply relative flex flex-wrap items-stretch mt-3 justify-items-center;
+	}
+	.search_input {
+		@apply w-full;
+	}
+	label {
+		@apply sr-only;
+	}
+	input {
+		@apply placeholder-vblue-light text-vblue rounded-lg w-full py-2 px-2 border border-white focus:outline-none focus:ring;
+	}
+	.search__action {
+		@apply z-10 h-full absolute right-0 pr-2 py-2 w-8;
+	}
+</style>

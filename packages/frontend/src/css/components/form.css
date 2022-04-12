@@ -26,3 +26,7 @@
 .form__result {
 	@apply text-center pb-4;
 }
+
+.form__info {
+	@apply bg-blue-100 rounded-lg p-4;
+}

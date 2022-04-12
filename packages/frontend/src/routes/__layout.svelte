@@ -5,8 +5,14 @@
 	import '../app.css';
 </script>
 
-<div class="min-h-screen bg-vblue text-white">
+<div class="wrapper">
 	<Header />
 	<slot />
 	<Footer />
 </div>
+
+<style lang="postcss">
+	.wrapper {
+		@apply min-h-screen bg-vblue text-white;
+	}
+</style>

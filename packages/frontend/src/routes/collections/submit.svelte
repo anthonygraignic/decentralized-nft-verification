@@ -1,4 +1,6 @@
 <script>
+	import { onMount } from 'svelte';
+
 	import {
 		chains,
 		getChainFromRegistryId,
@@ -32,9 +34,10 @@
 	let acceptPolicy = false;
 	let acceptDeposit = false;
 
-	$: canSubmit = !loading && !txTransaction && acceptPolicy && acceptDeposit;
-
+	$: canSubmit = !loading && !txTransaction && acceptPolicy && acceptDeposit && isRegistryUpToDate;
 	$: chosenRegistry = registries.find((registry) => registry.id === fields.registryId);
+
+	let isRegistryUpToDate = false;
 
 	let enableSocials = true;
 	let enableProof = false;
@@ -52,6 +55,22 @@
 			author: 'Anthony'
 		};
 	}
+
+	/**
+	 * Check local registry with latest commit to ensure form is not incorrect.
+	 */
+	async function checkRegistryVersion() {
+		const commitsRequest = await fetch(
+			'https://gitlab.com/api/v4/projects/34361675/repository/commits/master/'
+		);
+		const commits = await commitsRequest.json();
+
+		return chosenRegistry.version === commits.id;
+	}
+
+	onMount(async () => {
+		isRegistryUpToDate = await checkRegistryVersion();
+	});
 	// 	loading = true;
 	// 	setTimeout(() => {
 	// 		txTransaction = 'MOCK_TX';
@@ -114,7 +133,7 @@
 	<OnlyConnected bind:error>
 		<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
 			<h1 class="form__title">Submit your collection</h1>
-			<p class="bg-blue-100 rounded-lg p-4">
+			<p class="form__info">
 				Verification DAO submits this form to the Kleros NFT Curated List verification process for
 				now.
 				<br />
@@ -287,12 +306,12 @@
 							id="checkbox-policy"
 							aria-describedby="checkbox-policy"
 							type="checkbox"
-							class="w-4 h-4 text-vblue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+							class="w-4 h-4 flex-none text-vblue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 							bind:checked={acceptPolicy}
 						/>
 						<label
 							for="checkbox-policy"
-							class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+							class="ml-3 shrink text-sm font-medium text-gray-900 dark:text-gray-300"
 						>
 							My submission complies with the <a
 								href={convertToIpfsGatewayLink(chosenRegistry.policyLink)}
@@ -308,12 +327,12 @@
 							id="checkbox-deposit"
 							aria-describedby="checkbox-deposit"
 							type="checkbox"
-							class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+							class="w-4 h-4 flex-none text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 							bind:checked={acceptDeposit}
 						/>
 						<label
 							for="checkbox-deposit"
-							class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+							class="ml-3 shrink text-sm font-medium text-gray-900 dark:text-gray-300"
 							>I understand that a <span class="font-bold"
 								>{chosenRegistry.submissionDeposit || '???'}
 								{getChainSymbolFromIdStr(getChainFromRegistryId(chosenRegistry.id)) || '???'}</span
@@ -321,6 +340,14 @@
 						>
 					</div>
 				</fieldset>
+
+				{#if !isRegistryUpToDate}
+					<p class="text-red-500">
+						Our form doesn't support this version of the Registry Policy yet. <br />
+
+						<a href="/about#join" sveltekit:prefetch> Please contact us. </a>
+					</p>
+				{/if}
 
 				<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={!canSubmit} />
 			</OnlySupportedChain>
@@ -334,3 +361,10 @@
 		</p>
 	{/if}
 </main>
+
+<style lang="postcss">
+	main {
+		@apply px-5;
+	}
+	/* see form.css */
+</style>

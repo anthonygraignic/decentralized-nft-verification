@@ -1,7 +1,10 @@
+<!-- Borrowed from https://flowbite.com/ -->
 <footer class="border-t-2 border-vblue-dark bg-vblue text-white">
 	<div class="p-5">
 		<p class="font-bold mt-4">Project</p>
-		<div class="grid md:grid-cols-4 grid-cols-1 md:justify-items-center items-center">
+		<div
+			class="grid md:grid-cols-4 grid-cols-1 md:justify-items-center items-center md:gap-0 gap-2"
+		>
 			<p class="md:col-span-2">
 				Verification DAO work in collaboration with <a
 					href="https://kleros.io/"
