@@ -66,6 +66,12 @@
 			</dd>
 			<dt>Created by</dt>
 			<dd>{collection.author}</dd>
+			{#if collection.tokenId}
+				<dt>Token ID</dt>
+				<dd>
+					{collection.tokenId}
+				</dd>
+			{/if}
 			<dt>Proof</dt>
 			<dd>
 				{#if collection.proof}

@@ -8,7 +8,7 @@ export function convertLitemToCollection(litem, evidenceFiles) {
 	const name = litem.props.find((element) => element.label === 'Name')?.value;
 	const address = litem.props.find((element) => element.label === 'Collection')?.value;
 	const chainId = litem.props.find((element) => element.label === 'Chain ID')?.value;
-
+	const tokenId = litem.props.find((element) => element.label === 'Token ID')?.value;
 	const author = litem.props.find((element) => element.label === 'Author')?.value;
 	const attribution = litem.props.find((element) => element.label === 'Attribution')?.value;
 
@@ -49,6 +49,7 @@ export function convertLitemToCollection(litem, evidenceFiles) {
 		id: litem.id,
 		status: litem.status,
 		chainId,
+		tokenId,
 		name,
 		address,
 		author,

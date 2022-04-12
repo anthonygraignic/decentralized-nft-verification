@@ -32,6 +32,7 @@ export async function connect() {
 		}
 	} catch (e) {
 		console.log(e);
+		throw e;
 	}
 }
 

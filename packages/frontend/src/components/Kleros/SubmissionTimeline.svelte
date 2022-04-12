@@ -10,7 +10,6 @@
 	export let collection;
 	const collectionVerified = isCollectionStatusRegistered(collection.status);
 
-	console.log(collection);
 	//TODO put events(request & rounds...) in a list and order them DESC/ASC
 </script>
 
@@ -20,12 +19,15 @@
 		{@const submissionDateTime = timestampinSecondsToDate(request.submissionTime)}
 		<!-- {@const challengePeriodInDays = CHALLENGE_PERIOD_IN_SECONDS / 3600 / 24} -->
 		{#if request.disputed}
-			<a
-				href="https://court.kleros.io/cases/{request.disputeID}"
-				target="_blank"
-				rel="external noopener">See dispute in Kleros court</a
-			>
-			{#each request.rounds as round}
+			<li class="mb-10 ml-6">
+				<a
+					class=""
+					href="https://court.kleros.io/cases/{request.disputeID}"
+					target="_blank"
+					rel="external noopener">See dispute(s) in Kleros court</a
+				>
+			</li>
+			<!-- {#each request.rounds as round}
 				<SubmissionTimelineItem
 					datetime={timestampinSecondsToDate(round.creationTime)}
 					{collectionVerified}
@@ -35,10 +37,10 @@
 						<p class="break-all">{round.id}</p>
 					</details>
 				</SubmissionTimelineItem>
-			{/each}
-			{#each request.evidences as evidence}
+			{/each} -->
+			<!-- {#each request.evidences as evidence}
 				<EvidenceItem {evidence} />
-			{/each}
+			{/each} -->
 		{/if}
 		{#if request.resolved && !request.disputed && request.requestType === 'RegistrationRequested' && (request.disputeOutcome === 'None' || request.disputeOutcome === 'Accept')}
 			<SubmissionTimelineItem
