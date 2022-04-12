@@ -114,7 +114,7 @@
 	<OnlyConnected bind:error>
 		<form class="form__wrapper" on:submit|preventDefault={onSubmit}>
 			<h1 class="form__title">Submit your collection</h1>
-			<p class="bg-blue-100 rounded-lg p-4">
+			<p class="form__info">
 				Verification DAO submits this form to the Kleros NFT Curated List verification process for
 				now.
 				<br />
@@ -339,4 +339,5 @@
 	main {
 		@apply px-5;
 	}
+	/* see form.css */
 </style>

@@ -6,7 +6,7 @@
 	export let loading = false;
 </script>
 
-<div class="grid grid-flow-row sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-4 my-4" in:fade>
+<div class="results" in:fade>
 	{#if loading}
 		{#each Array.from(Array(6).keys()) as item}
 			<CollectionCard collection={{ id: '', status: '' }} loading={true} />
@@ -18,7 +18,7 @@
 				<CollectionCard {collection} />
 			{/each}
 		{:else}
-			<div class="sm:col-span-2 lg:col-span-3">
+			<div class="results--nothing">
 				<p in:fade>
 					No results.
 					<a href="/collections/submit" sveltekit:prefetch>Submit it</a>
@@ -27,3 +27,12 @@
 		{/if}
 	{/if}
 </div>
+
+<style lang="postcss">
+	.results {
+		@apply grid grid-flow-row sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-4 my-4;
+	}
+	.results--nothing {
+		@apply sm:col-span-2 lg:col-span-3;
+	}
+</style>

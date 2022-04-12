@@ -2,7 +2,7 @@
 	import SearchSection from '../components/Search/SearchSection.svelte';
 </script>
 
-<main class="container px-5 mx-auto bg-cover md:bg-contain bg-left-top md:bg-top bg-no-repeat">
+<main>
 	<div class="titles">
 		<h1>Verified NFT Search</h1>
 		<h2>Search</h2>
@@ -14,6 +14,7 @@
 
 <style lang="postcss">
 	main {
+		@apply container px-5 mx-auto bg-cover md:bg-contain bg-left-top md:bg-top bg-no-repeat;
 		background-image: url('/bg.png');
 		min-height: 70vh;
 	}

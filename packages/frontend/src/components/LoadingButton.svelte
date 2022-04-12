@@ -5,6 +5,7 @@
 	export let defaultText;
 </script>
 
+<!-- Borrowed from https://flowbite.com/ -->
 <button
 	class="rounded my-2 p-2 bg-vblue text-white disabled:bg-gray-300 font-bold"
 	type="submit"

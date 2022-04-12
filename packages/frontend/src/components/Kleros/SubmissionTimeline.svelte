@@ -13,7 +13,7 @@
 	//TODO put events(request & rounds...) in a list and order them DESC/ASC
 </script>
 
-<ol class="relative border-l border-vgray-light dark:border-gray-700">
+<ol>
 	<!-- {@debug collection} -->
 	{#each collection.requests as request}
 		{@const submissionDateTime = timestampinSecondsToDate(request.submissionTime)}
@@ -24,7 +24,7 @@
 					class=""
 					href="https://court.kleros.io/cases/{request.disputeID}"
 					target="_blank"
-					rel="external noopener">See dispute(s) in Kleros court</a
+					rel="external noopener">See case in Kleros court</a
 				>
 			</li>
 			<!-- {#each request.rounds as round}
@@ -47,7 +47,7 @@
 				datetime={timestampinSecondsToDate(request.resolutionTime)}
 				{collectionVerified}
 			>
-				<p class="text-base font-bold break-all">Collection verified after being unchallenged</p>
+				<p>Collection verified after being unchallenged</p>
 			</SubmissionTimelineItem>
 		{/if}
 		{#if request.requestType === 'ClearingRequested' && (request.disputeOutcome === 'None' || request.disputeOutcome === 'Accept')}
@@ -55,11 +55,11 @@
 				datetime={timestampinSecondsToDate(request.resolutionTime)}
 				{collectionVerified}
 			>
-				<p class="text-base font-bold break-all">Collection removed</p>
+				<p>Collection removed</p>
 			</SubmissionTimelineItem>
 		{/if}
 		<SubmissionTimelineItem datetime={submissionDateTime} {collectionVerified}>
-			<p class="text-base font-bold break-all">
+			<p>
 				{#if request.requestType === 'RegistrationRequested'}
 					NFT Collection Submitted by <AddressLinkWrapper address={request.requester}
 						>{shortenAddress(request.requester)}</AddressLinkWrapper
@@ -75,3 +75,12 @@
 		</SubmissionTimelineItem>
 	{/each}
 </ol>
+
+<style lang="postcss">
+	ol {
+		@apply relative border-l border-vgray-light dark:border-gray-700;
+	}
+	p {
+		@apply text-base font-bold break-all;
+	}
+</style>

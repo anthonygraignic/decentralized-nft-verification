@@ -52,10 +52,10 @@
 	export let registry;
 </script>
 
-<main class="grid grid-cols-1 justify-items-center ">
-	<div class="flex flex-col justify-center px-4 max-w-3xl">
-		<img src={collection.thumbnail} alt="{collection.name} logo" class="max-h-36 mx-auto" />
-		<h1 class="text-center" class:text-red-500={!isCollectionStatusRegistered(collection.status)}>
+<main>
+	<div class="collection__info">
+		<img src={collection.thumbnail} alt="{collection.name} logo" class="logo" />
+		<h1 class:text-red-500={!isCollectionStatusRegistered(collection.status)}>
 			{collection.name}
 		</h1>
 		<StatusBadge status={collection.status} />
@@ -92,8 +92,8 @@
 			</dd>
 		</dl>
 	</div>
-	<div class="flex flex-col items-center justify-items-center space-y-7 mb-10 max-w-3xl">
-		<hr class="mt-5 w-full border-t border-vgray-light" />
+	<div class="collection__submission">
+		<hr />
 		<h2>Submission details</h2>
 
 		<!-- <p>Type: <em>...</em></p>
@@ -111,6 +111,24 @@
 </main>
 
 <style lang="postcss">
+	main {
+		@apply grid grid-cols-1 justify-items-center;
+	}
+	.collection__info {
+		@apply flex flex-col justify-center px-4 max-w-3xl;
+	}
+	h1 {
+		@apply text-center;
+	}
+	.logo {
+		@apply max-h-36 mx-auto;
+	}
+	.collection__submission {
+		@apply flex flex-col items-center justify-items-center space-y-7 mb-10 max-w-3xl;
+	}
+	hr {
+		@apply mt-5 w-full border-t border-vgray-light;
+	}
 	dt {
 		@apply mt-5;
 	}

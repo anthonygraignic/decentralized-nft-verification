@@ -1,8 +1,8 @@
-<main class="container px-5">
+<main>
 	<h1>What is Verification DAO ?</h1>
 
-	A community building &nbsp;<b>decentralized NFT collection verification</b> as a standard for collectors,
-	creators and developers.
+	A community building &nbsp;<b>decentralized NFT collection verification</b> as a standard for
+	collectors, creators and developers.
 
 	<p>
 		<a
@@ -34,7 +34,7 @@
 	<h1>How do you verify a collection ?</h1>
 
 	<p>We divided the NFT Collection verification process in 4 phases:</p>
-	<ol class="list-decimal list-inside">
+	<ol>
 		<li>
 			<b>Submission</b> - The collection is submitted with all its details (contract address, name...)
 			and secured by a deposit.
@@ -84,3 +84,12 @@
 		<a href="https://twitter.com/agraignic" rel="external noopener" target="_blank">Anthony</a>
 	</p>
 </main>
+
+<style lang="postcss">
+	main {
+		@apply container px-5 mb-5;
+	}
+	ol {
+		@apply list-decimal list-inside;
+	}
+</style>

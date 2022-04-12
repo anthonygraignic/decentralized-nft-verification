@@ -76,9 +76,9 @@ async function handleAccountsChanged() {
  */
 async function handleChainChanged(_chainId, refresh = true) {
 	if (refresh) {
-		window.location.reload();
-		// 	await getInstances();
-		// 	await handleAccountsChanged();
+		// window.location.reload();
+		await getInstances();
+		await handleAccountsChanged();
 	}
 	chainId.set(_chainId);
 }
