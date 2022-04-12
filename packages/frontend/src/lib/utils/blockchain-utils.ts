@@ -18,6 +18,7 @@ export const registries = [
 			'https://curate.kleros.io/tcr/0x2F19F817BBF800B487b7F2E51f24aD5Ea0222463?chainId=100',
 		sourceLink: 'https://gitlab.com/mizu_eth/nft-registries',
 		policyLink: '/ipfs/QmQCQ943e6NzmGJQj1uc74zS53fesdMVkFKgjtzzh1fDej/policy.pdf',
+		version: 'c3d74a1ea76d577927e93230693cb7eef19b2a7a',
 		submissionDeposit: 36.9,
 		challengePeriodDuration: 108, // in hours
 		columns: [

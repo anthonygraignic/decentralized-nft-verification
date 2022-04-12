@@ -1,4 +1,6 @@
 <script>
+	import { onMount } from 'svelte';
+
 	import {
 		chains,
 		getChainFromRegistryId,
@@ -32,9 +34,10 @@
 	let acceptPolicy = false;
 	let acceptDeposit = false;
 
-	$: canSubmit = !loading && !txTransaction && acceptPolicy && acceptDeposit;
-
+	$: canSubmit = !loading && !txTransaction && acceptPolicy && acceptDeposit && isRegistryUpToDate;
 	$: chosenRegistry = registries.find((registry) => registry.id === fields.registryId);
+
+	let isRegistryUpToDate = false;
 
 	let enableSocials = true;
 	let enableProof = false;
@@ -52,6 +55,22 @@
 			author: 'Anthony'
 		};
 	}
+
+	/**
+	 * Check local registry with latest commit to ensure form is not incorrect.
+	 */
+	async function checkRegistryVersion() {
+		const commitsRequest = await fetch(
+			'https://gitlab.com/api/v4/projects/34361675/repository/commits/master/'
+		);
+		const commits = await commitsRequest.json();
+
+		return chosenRegistry.version === commits.id;
+	}
+
+	onMount(async () => {
+		isRegistryUpToDate = await checkRegistryVersion();
+	});
 	// 	loading = true;
 	// 	setTimeout(() => {
 	// 		txTransaction = 'MOCK_TX';
@@ -321,6 +340,14 @@
 						>
 					</div>
 				</fieldset>
+
+				{#if !isRegistryUpToDate}
+					<p class="text-red-500">
+						Our form doesn't support this version of the Registry Policy yet. <br />
+
+						<a href="/about#join" sveltekit:prefetch> Please contact us. </a>
+					</p>
+				{/if}
 
 				<LoadingButton {loading} {loadingText} defaultText="Submit" disabled={!canSubmit} />
 			</OnlySupportedChain>
